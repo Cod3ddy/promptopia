@@ -32,10 +32,11 @@ const Feed = () => {
 			const response = await fetch("/api/prompt");
 			const data = await response.json();
 			// alert(data[0].creator.image);
+		
 			setPosts(data);
 		};
 
-		console.log(posts);
+		// console.log("data from feed:", posts);
 		fetchPosts();
 	}, []);
 

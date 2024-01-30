@@ -10,6 +10,9 @@ export const CreatePrompt = () => {
 	const [submitting, setsubmitting] = useState(false);
 	const { data: session } = useSession();
 	const router = useRouter();
+	
+	// console.log(`the session: ${session?.user.id}`);
+
 
 	const [post, setPost] = useState({
 		prompt: "",

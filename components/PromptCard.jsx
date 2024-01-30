@@ -3,11 +3,22 @@
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import Image from "next/image";
-import { usepPathname, useRouter } from "next/navigation";
+import { usePathname, usepPathname, useRouter } from "next/navigation";
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 	// check whether the prompt has been copied or not
 	const [copied, setCopied] = useState("");
+
+	// session 
+	const {data: session} = useSession();
+
+	// pathname 
+
+	const pathName = usePathname();
+
+	// router 
+
+	const router = useRouter();
 
 	// copy the prompt
 	const handleCopy = () => {
@@ -62,8 +73,29 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 				className="font-inter text-sm blue_gradient cursor-pointer"
 				onClick={() => handleTagClick && handleTagClick(post.tag)}
 			>
-				{post.tag}
+				#{post.tag}
 			</p>
+
+			{/* check ther currently logged in users */}
+
+			{session?.user.id === post.creator._id && pathName === '/profile' &&  (
+				<div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
+					{/* edit */}
+					<p className="font-inter text-sm green_gradient cursor-pointer"
+					onClick={handleEdit}>
+						Edit
+					</p>
+
+					{/* delete */}
+					<p className="font-inter text-sm orange_gradient cursor-pointer"
+					onClick={handleDelete}>
+						Delete
+					</p>
+
+
+				</div>
+			)}
+
 		</div>
 	);
 };
